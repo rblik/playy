@@ -1,0 +1,9 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET /topX/:writer/:x controllers.Application.topX(writer, x)
+
+GET /compare/:artist1/:artist2/:x controllers.Application.compare(artist1, artist2, x)
+
+    
