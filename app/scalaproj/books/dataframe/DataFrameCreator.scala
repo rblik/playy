@@ -10,5 +10,6 @@ import SparkContextLoader.sql.implicits._
   * Created by Blik on 03/04/2017.
   */
 object DataFrameCreator {
-  val create: (String) => DataFrame = (path: String) =>  sc.textFile(path).flatMap("\\w+".r.findAllIn(_)).toDF("word")
+  val createBooksDF: (String) => DataFrame = (path: String) =>  sc.textFile(path).flatMap("\\w+".r.findAllIn(_)).toDF("word")
+  val createPhonesDF: (String) => DataFrame = (path: String) =>  sc.textFile(path).toDF("phone")
 }

@@ -1,4 +1,4 @@
-package scalaproj.phones
+package scalaproj.phones.rdd
 
 import org.scalatest.FunSuite
 import scalaproj.spark.SparkContextLoader.sc
@@ -6,11 +6,11 @@ import scalaproj.spark.SparkContextLoader.sc
 /**
   * Created by Blik on 03/04/2017.
   */
-class PhoneService$Test extends FunSuite {
+class PhoneServiceRDD$Test extends FunSuite {
 
   test("testGetFilteredByCountry") {
     val rdd = sc.textFile("data/phone/file.txt")
-    PhoneService.getFilteredByCountry(rdd, Set("Israel")).foreach(println)
+    PhoneServiceRDD.getFilteredByCountry(rdd, Set("Israel")).foreach(println)
   }
 
 }
