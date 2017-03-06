@@ -16,6 +16,7 @@ object PhoneServiceDF {
 
     val country = udf((phone: String) => broadcast.value.getOrElse(phone.substring(0, phone.length - 7), Operator("", "")).country)
 
+//    http://apache-spark-user-list.1001560.n3.nabble.com/How-to-trace-debug-serialization-td18230.html#a18254
     val dataFrame = phones
       .withColumn("phone", col("phone"))
       .withColumn("country", country(col("phone")))
