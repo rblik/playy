@@ -1,5 +1,6 @@
 package scalaproj.books.dataframe
 
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.DataFrame
 
 import scalaproj.spark.SparkContextLoader
@@ -10,6 +11,7 @@ import SparkContextLoader.sql.implicits._
   * Created by Blik on 03/04/2017.
   */
 object DataFrameCreator {
-  val createBooksDF: (String) => DataFrame = (path: String) =>  sc.textFile(path).flatMap("\\w+".r.findAllIn(_)).toDF("word")
-  val createPhonesDF: (String) => DataFrame = (path: String) =>  sc.textFile(path).toDF("phone")
+  val rdd: String => RDD[String] = (path: String) => sc.textFile(path)
+  val rowDF: String => DataFrame = (path: String) =>  rdd(path).flatMap("\\w+".r.findAllIn(_)).toDF("word")
+  val wordDF: String => DataFrame = (path: String) =>  rdd(path).toDF("phone")
 }

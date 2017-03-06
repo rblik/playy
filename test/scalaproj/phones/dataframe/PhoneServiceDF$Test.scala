@@ -10,7 +10,7 @@ import scalaproj.books.dataframe.DataFrameCreator._
 class PhoneServiceDF$Test extends FunSuite {
 
   test("testGetCountByCountry") {
-    val df = createPhonesDF("data/phone/file.txt")
+    val df = wordDF("data/phone/file.txt")
     PhoneServiceDF.getCountByCountry(df, Set("Israel"))
   }
 }

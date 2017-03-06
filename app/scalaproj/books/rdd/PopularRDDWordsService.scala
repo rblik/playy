@@ -11,11 +11,12 @@ object PopularRDDWordsService {
 
 
   def topX(lines: RDD[String], x: Int): List[String] = {
+    val broadcast = excludedBroadcast
     lines.map(_.toLowerCase)
 //      .flatMap(_.split(" "))
       .flatMap("\\w+".r.findAllIn(_))
       .filter(_.length > 3)
-      .filter(!excludedBroadcast.value.contains(_))
+      .filter(!broadcast.value.contains(_))
       .map(_ -> 1)
       .reduceByKey(_ + _)
       .sortBy(_._2, ascending = false)

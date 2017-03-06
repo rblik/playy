@@ -9,10 +9,9 @@ import scalaproj.phones.{CommonConfig, Operator}
   */
 object PhoneServiceRDD {
   private val broadcast = CommonConfig.broadcast
-  private val getOperator = (phone: String) => broadcast.value.getOrElse(phone.substring(0, phone.length - 7), Operator("", ""))
 
   def getFilteredByCountry(rdd: RDD[String], countries: Set[String]): List[String] = {
-    rdd.filter(phone => countries.contains(getOperator(phone).country))
+    rdd.filter(phone => countries.contains(broadcast.value.getOrElse(phone.substring(0, phone.length - 7), Operator("", "")).country))
       .take(10).toList
   }
 }

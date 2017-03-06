@@ -11,11 +11,10 @@ import scalaproj.books.UserConfig.excludedBroadcast
 object PopularDFWordsService {
 
   def topX(lines: DataFrame, x: Int): List[String] = {
-    val value = excludedBroadcast.value.toSeq
-
+    val broadcast = excludedBroadcast
     lines.withColumn("word", lower(col("word")))
       .where(length(col("word")) > 3)
-      .filter(not(col("word").isin(value: _*)))
+      .filter(not(col("word").isin(broadcast.value.toSeq: _*)))
       .groupBy(col("word")).agg(count("word").as("count"))
       .sort(col("count").desc)
       .take(x)

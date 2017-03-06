@@ -11,10 +11,10 @@ import scalaproj.phones.{CommonConfig, Operator}
   */
 object PhoneServiceDF {
   private val broadcast = CommonConfig.broadcast
-  private val getOperator = (phone: String) => broadcast.value.getOrElse(phone.substring(0, phone.length - 7), Operator("", ""))
-  private val country = udf((phone: String) => getOperator(phone).country)
 
   def getCountByCountry(phones: DataFrame, countries: Set[String]): Long = {
+
+    val country = udf((phone: String) => broadcast.value.getOrElse(phone.substring(0, phone.length - 7), Operator("", "")).country)
 
     val dataFrame = phones
       .withColumn("phone", col("phone"))

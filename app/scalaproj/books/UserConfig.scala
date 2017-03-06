@@ -1,6 +1,8 @@
 package scalaproj.books
 
 import com.typesafe.config.ConfigFactory.load
+import org.apache.spark.broadcast.Broadcast
+
 import scalaproj.spark.SparkContextLoader.sc
 
 /**
@@ -10,5 +12,5 @@ object UserConfig {
   @transient
   private val excluded = load("user").getString("garbage").split(", ").toSet[String]
 
-  val excludedBroadcast = sc.broadcast(excluded)
+  val excludedBroadcast: Broadcast[Set[String]] = sc.broadcast(excluded)
 }
